@@ -1,0 +1,44 @@
+[
+  {
+    "name": "kitchen",
+    "lighting": [
+      {
+        "name": "main",
+        "colors": [],
+	"pin": 6
+      }
+    ],
+    "devices": [
+      {
+	"name": "dishwasher",
+	"pin": 13
+      }
+    ]
+  },
+  {
+    "name": "bedroom",
+    "lighting": [
+      {
+        "name": "main",
+        "colors": [],
+	"pin": 19
+      }
+    ],
+    "devices": [
+      {
+	"name": "tv",
+	"pin": 26
+      }
+    ]
+  },
+  {
+    "name": "porch",
+    "lighting": [],
+    "devices": []
+  },
+  {
+    "name": "outdoor",
+    "lighting": [],
+    "devices": []
+  }
+]
