@@ -1,18 +1,14 @@
-import sys
-sys.path.append("..")
-
-
 import json
-from HomeObjects.device import *
-from HomeObjects.room import *
-from HomeObjects.light import *
-from HomeObjects.door import *
-from HomeObjects.alarm import *
+from Engine.HomeObjects.device import *
+from Engine.HomeObjects.room import *
+from Engine.HomeObjects.light import *
+from Engine.HomeObjects.door import *
+from Engine.HomeObjects.alarm import *
 
 
-ROOMS_CONFIG_PATH = "ConfigSetup/rooms.json5"
-DOORS_CONFIG_PATH = "ConfigSetup/doors.json5"
-ALARMS_CONFIG_PATH = "ConfigSetup/alarms.json5"
+ROOMS_CONFIG_PATH = "Engine/ConfigSetup/rooms.json5"
+DOORS_CONFIG_PATH = "Engine/ConfigSetup/doors.json5"
+ALARMS_CONFIG_PATH = "Engine/ConfigSetup/alarms.json5"
 
 
 def setup_alarms():

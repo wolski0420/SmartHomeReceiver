@@ -1,7 +1,8 @@
 import paho.mqtt.client as mqtt
-import ConfigSetup.parser as parser
-from behaviours import *
+import Engine.ConfigSetup.parser as parser
+import Engine.behaviours as behaviours
 from time import sleep
+import RPi.GPIO as GPIO
 
 
 class Receiver:
@@ -26,7 +27,7 @@ class Receiver:
             self.subscriber.subscribe(alarm.path)
             
     def __setup_client__(self):
-        Behaviours(self.subscriber, self.rooms, self.doors, self.alarms).set_all()
+        behaviours.Behaviours(self.subscriber, self.rooms, self.doors, self.alarms).set_all()
         
     def __setup__(self):
         self.__setup_client__()
@@ -40,8 +41,4 @@ class Receiver:
     def finish(self):
         self.subscriber.loop_stop()
         self.subscriber.disconnect()
-
-rc = Receiver('Odbiornik')
-rc.run()
-sleep(120)
-rc.finish()
+        GPIO.cleanup()
