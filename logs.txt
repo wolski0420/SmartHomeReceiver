@@ -1,0 +1,6 @@
+[06/10/2020 02:07:10]  Changed power status in "room/kitchen/light/main" from "On" to "Off"
+[06/10/2020 02:07:10]  Changed power status in "room/kitchen/device/dishwasher" from "On" to "Off"
+[06/10/2020 02:07:10]  Changed power status in "room/bedroom/light/main" from "On" to "Off"
+[06/10/2020 02:07:10]  Changed power status in "room/bedroom/device/tv" from "On" to "Off"
+[06/10/2020 02:07:10]  Changed power status in "door/porch-outdoor" from "Block" to "Unblock"
+[06/10/2020 02:07:10]  Changed power status in "alarm/home-alarm" from "On" to "Off"

@@ -26,6 +26,13 @@ class Door(Obj):
             opposite = 'block'
                 
         signal, opposite = signal.capitalize(), opposite.capitalize()
+        
+        file = open("logs.txt", "a")
+        actual_time = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        file.write(f'[{actual_time}]  Changed power status in \"{self.path}\" '
+              f'from \"{opposite}\" to \"{signal}\"\n')
+        file.close()
             
         print(f'Changed power status in \"{self.path}\" '
               f'from \"{opposite}\" to \"{signal}\"')
+        self.notify_observers('power')

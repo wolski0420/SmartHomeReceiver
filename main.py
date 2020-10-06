@@ -1,6 +1,5 @@
 from Engine.receiver import *
+from GUI.treceiver import *
 
-rc = Receiver('Odbiornik')
-rc.run()
-sleep(120)
-rc.finish()
+trc = TReceiver(Receiver('Odbiornik'))
+trc.start()

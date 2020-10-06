@@ -1,19 +1,21 @@
 import paho.mqtt.client as mqtt
 import Engine.ConfigSetup.parser as parser
-import Engine.behaviours as behaviours
+from Engine.behaviours import Behaviours
+from Engine.info import Info
 from time import sleep
 import RPi.GPIO as GPIO
 
 
 class Receiver:
-    def __init__(self, name, ip="127.0.0.1", port=1883):
+    def __init__(self, name):
         self.name = name
         self.rooms = parser.setup_rooms()
         self.doors = parser.setup_doors(self.rooms)
         self.alarms = parser.setup_alarms()
         self.subscriber = mqtt.Client()
-        self.ip = ip
-        self.port = port
+        self.publisher = mqtt.Client()
+        self.behaviours = None
+        self.info = Info("127.0.0.1", 1883)
         
     def __subscribe_all__(self):
         for room in self.rooms.values():
@@ -27,18 +29,25 @@ class Receiver:
             self.subscriber.subscribe(alarm.path)
             
     def __setup_client__(self):
-        behaviours.Behaviours(self.subscriber, self.rooms, self.doors, self.alarms).set_all()
+        self.behaviours = Behaviours(self.subscriber, self.publisher, self.rooms, self.doors, self.alarms)
+        self.behaviours.set_all()
         
     def __setup__(self):
         self.__setup_client__()
         self.__subscribe_all__()
         
     def run(self):
-        self.subscriber.connect(self.ip, self.port)
+        self.subscriber.connect(self.info.ip, self.info.port)
         self.subscriber.loop_start()
         self.__setup__()
         
     def finish(self):
         self.subscriber.loop_stop()
+        
+        if self.behaviours is not None:
+            self.publisher.connect(self.info.ip, self.info.port)
+            self.behaviours.on_close()
+            self.publisher.disconnect()
+            
         self.subscriber.disconnect()
         GPIO.cleanup()

@@ -1,6 +1,7 @@
 class Behaviours:
-    def __init__(self, client, rooms, doors, alarms):
-        self.client = client
+    def __init__(self, subscriber, publisher, rooms, doors, alarms):
+        self.subscriber = subscriber
+        self.publisher = publisher
         self.rooms = rooms
         self.doors = doors
         self.alarms = alarms
@@ -39,9 +40,9 @@ class Behaviours:
                 if message[0] == 'power':
                     light.change_power(message[1])
                 elif message[0] == 'brightness':
-                    print('Brightness change called')
+                    light.change_brightness(message[1])
                 elif message[0] == 'color':
-                    print('Color change called')
+                    light.change_brightness(message[1])
                     
             elif topic[2] == 'device':
                 device = room.devices[topic[3]]
@@ -52,7 +53,18 @@ class Behaviours:
                     device.change_power(message[1]) 
         
     def set_on_message(self):
-        self.client.on_message = self.__on_message__
+        self.subscriber.on_message = self.__on_message__
         
+    def on_close(self):
+        for room in self.rooms.values():
+            for light in room.lighting.values():
+                self.publisher.publish(light.path, "power=off")
+            for device in room.devices.values():
+                self.publisher.publish(device.path, "power=off")
+        for door in self.doors.values():
+            self.publisher.publish(door.path, "blockade_status=unblock")
+        for alarm in self.alarms.values():
+            self.publisher.publish(alarm.path, "power=off")
+            
     def set_all(self):
         self.set_on_message()
