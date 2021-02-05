@@ -1,4 +1,4 @@
-# Smart Home Remote Control
+# Smart Home Receiver
 
 Choose description language: [PL](https://github.com/wolski0420/SmartHomeReceiver/blob/master/README.pl.md), [ENG](https://github.com/wolski0420/SmartHomeReceiver/blob/master/README.md)
 
